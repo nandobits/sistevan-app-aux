@@ -1,0 +1,98 @@
+<mat-toolbar color="primary">
+    <p>test</p>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onLogout()">
+        <span>Cerrar sesión</span>
+    </button>
+</mat-menu>
+<div class="ss-main-content">
+    <div class="ss-main-content-inner">
+        <div class="ss-select-devices" *ngIf="availableDevices">
+            <mat-form-field>
+                <mat-select placeholder="Selecciona una camara" (selectionChange)="onDeviceSelectChange($event)" [(value)]="selectedDevice">
+                    <mat-option value="">Sin dispositivo</mat-option>
+                    <mat-option *ngFor="let device of availableDevices" [value]="device.deviceId">
+                        {{ device.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div [hidden]="!hasCameras">
+            <p class="ss-message" *ngIf="!this.selectedDevice">NO hay una camara seleccionada</p>
+            <zxing-scanner #scanner start="true" class="ss-video" [scannerEnabled]="scannerEnabled" [device]="selectedDevice" (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
+            <div class="ss-response" *ngIf="qrResultString">
+                <div class="ss-info">
+                    <p class="ss-label">Información</p>
+                    <div class="ss-row">
+                        <p class="ss-title">Código: </p>
+                        <p class="ss-description">{{info[0]}}</p>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Descripción: </p>
+                        <p class="ss-description">{{info[1]}}</p>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Categoría: </p>
+                        <p class="ss-description" *ngIf="categories">{{getElementValue(info[2], categories)}}</p>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Medida: </p>
+                        <p class="ss-description" *ngIf="measurements">{{getElementValue(info[3], measurements)}}</p>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Unidad: </p>
+                        <mat-form-field class="ss-input">
+                            <input matInput [(ngModel)]="units">
+                        </mat-form-field>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Presentación: </p>
+                        <p class="ss-description" *ngIf="presentations">{{getElementValue(info[5], presentations)}}</p>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Contenido: </p>
+                        <p class="ss-description" *ngIf="measurements">{{getContentValue(info[6])}}</p>
+                    </div>
+                    <div class="ss-row" *ngIf="info[3] == 3">
+                        <p class="ss-title">Peso Real: </p>
+                        <mat-form-field class="ss-input">
+                            <input matInput [(ngModel)]="realWeight">
+                        </mat-form-field>
+                    </div>
+                    <div class="ss-row">
+                        <p class="ss-title">Proveedor: </p>
+                        <mat-form-field *ngIf="providers">
+                            <mat-select [(ngModel)]="provider">
+                                <mat-option *ngFor="let provider of providers" [value]="provider.id" >
+                                    {{ provider.description }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="ss-actions">
+                    <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+                    <button mat-raised-button color="primary" (click)="onSave()">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ss-error-container" *ngIf="!hasCameras && hasPermission === true">
+            <p>Looks like your actual device does not has cameras, or I could no find'em. </p>
+        </div>
+        <div class="ss-error-container" *ngIf="hasPermission === undefined">
+            <p>Waiting for permissions.</p>
+            <blockquote>
+            <p>If your device does not has cameras, no permissions will be asked.</p>
+            </blockquote>
+        </div>
+        <div class="ss-error-container" *ngIf="hasPermission === false">
+            <p>You denied the camera permissions, we can't scan anything without it. 😪</p>
+        </div>
+    </div>
+</div>

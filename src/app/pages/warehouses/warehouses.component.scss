@@ -1,0 +1,33 @@
+.ss-main-container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .ss-card{
+        width: 100%;
+        max-width: 280px;
+        .ss-title{
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .ss-input{
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        .ss-actions{
+            text-align: center;
+            margin-top: 16px;
+            button{
+                width: 120px;
+            }
+        }
+        .ss-error{
+            font-size: 14px;
+            color: red;
+            margin-top: 12px;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,59 @@
+mat-toolbar{
+    justify-content: space-between;
+}
+
+.ss-main-content{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    .ss-main-content-inner{
+        padding: 0px 16px;
+        .ss-select-devices{
+            text-align: center;
+            margin: 24px 0px;
+            mat-form-field{
+                width: 200px;
+                width: 95%;
+            }
+        }
+        .ss-video{
+            width: 320px;
+            margin: 0 auto;
+        }
+        .ss-message{
+            text-align: center;
+        }
+        .ss-response{
+            .ss-info{
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08);
+                background-color: white;
+                border-radius: 3px;
+                padding: 16px 0px;
+                .ss-label{
+                    font-size: 24px;
+                    text-align: center;
+                    margin: 16px 0px 24px;
+                    font-weight: bold;
+                }
+                .ss-row{
+                    display: flex;
+                    align-items: center;
+                    padding: 8px 16px;
+                    .ss-title{
+                        width: 120px;
+                        font-weight: bold;
+                        font-size: 18px;
+                    }
+                }
+            }
+            .ss-actions{
+                margin: 24px 0px;
+                text-align: center;
+                button{
+                    width: 160px;
+                    margin: 0px 8px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<div class="ss-main-container">
+    <div class="ss-card">
+        <p class="ss-title">Sistevan</p>
+        <mat-form-field class="ss-input">
+            <input matInput placeholder="Correo" [(ngModel)]="email" name="email">
+        </mat-form-field>
+        <mat-form-field class="ss-input">
+            <input matInput placeholder="Contraseña" type="password" [(ngModel)]="password" name="password">
+        </mat-form-field>
+        <div class="ss-actions">
+            <button mat-raised-button color="primary" (click)="onLogin()">Ingresar</button>
+        </div>
+        <p class="ss-error" *ngIf="loginError">Error al intentar iniciar sesión</p>
+    </div>
+</div>

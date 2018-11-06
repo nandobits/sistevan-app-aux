@@ -1,0 +1,15 @@
+<div class="ss-main-container">
+    <div class="ss-card">
+        <p class="ss-title">Sistevan</p>
+        <mat-form-field class="ss-input">
+            <mat-select [(ngModel)]="warehouse" placeholder="Selecciona el almacén">
+                <mat-option *ngFor="let warehouse of warehouses" [value]="warehouse.id" >
+                    {{ warehouse.description }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="ss-actions">
+            <button mat-raised-button color="primary" (click)="onSave()">Guardar</button>
+        </div>
+    </div>
+</div>
