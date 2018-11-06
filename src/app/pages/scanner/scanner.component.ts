@@ -21,6 +21,7 @@ export class ScannerComponent implements OnInit {
     public units: any;
     public provider: any;
     public realWeight: string = '';
+    public user: any;
     private cadScanner: string = "05LN150AM|LONA 1.50 AMARILLA|5|2|1|1|50,1|3";
     hasCameras = false;
     hasPermission: boolean;
@@ -35,6 +36,8 @@ export class ScannerComponent implements OnInit {
             this.hasCameras = true;
             this.availableDevices = devices;
         });
+
+        this.user = this.sistevanService.getUserInfoLS();
 
         this.scanner.camerasNotFound.subscribe((devices: MediaDeviceInfo[]) => {
             console.error('An error has occurred when trying to enumerate your video-stream-enabled devices.');

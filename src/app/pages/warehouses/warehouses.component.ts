@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SistevanService } from '../../services/sistevan.service';
 
@@ -7,32 +7,17 @@ import { SistevanService } from '../../services/sistevan.service';
   templateUrl: './warehouses.component.html',
   styleUrls: ['./warehouses.component.scss']
 })
-export class WarehousesComponent {
+export class WarehousesComponent implements OnInit {
     public warehouse: string;
-    private warehouses: any[] = [
-        {
-            id: '1',
-            description: 'Bodega 1'
-        },
-        {
-            id: '2',
-            description: 'Bodega 2'
-        },
-        {
-            id: '3',
-            description: 'Bodega 3'
-        },
-        {
-            id: '4',
-            description: 'Bodega 4'
-        },
-        {
-            id: '5',
-            description: 'Bodega 5'
-        }
-    ]
+    public warehouses: any[];
 
     constructor(private sistevanService: SistevanService, private router: Router) { }
+
+    ngOnInit(){
+        this.sistevanService.getCatValues('get_warehouses').then( (warehouses: any[]) => {
+            this.warehouses = warehouses;
+        })
+    }
 
     public onSave(){
         this.sistevanService.setWarehouseLS(this.warehouse);
