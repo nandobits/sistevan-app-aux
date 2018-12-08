@@ -87,10 +87,15 @@ export class ScannerComponent implements OnInit {
         params += "&provider="+ this.provider;
         params += "&warehouse_id="+ this.sistevanService.getWarehouseId();
         params += "&user_id="+ this.sistevanService.getUserId();
-        this.sistevanService.addProduct(params).then( res => {
-            this.qrResultString = null;
-            this.scannerEnabled = true;
-            alert('¡Producto guardado!')
+        this.sistevanService.addProduct(params).then( (res: any) => {
+            if(res.status == 3){
+                this.qrResultString = null;
+                this.scannerEnabled = true;
+                alert('¡Producto guardado!')
+            }else{
+                alert("¡Error al agregar el producto¡");
+            }
+
             /*this.snackbar.open('¡Producto guardado!', 'Undo', {
               duration: 2500
           });*/
